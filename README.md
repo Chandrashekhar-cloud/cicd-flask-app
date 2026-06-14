@@ -1,33 +1,46 @@
-````md
 # 🚀 CI/CD Flask Application
 
-[![CI Pipeline](https://img.shields.io/badge/CI-Passing-brightgreen)]()
-[![Docker](https://img.shields.io/badge/Docker-Containerized-blue)]()
-[![Python](https://img.shields.io/badge/Python-3.12-yellow)]()
+> End-to-End DevOps Project demonstrating Flask, Docker, GitHub Actions, Automated Testing, and Cloud Deployment.
+
+---
 
 ## 🌐 Live Demo
 
-**Application URL**
+### Application URL
 
 https://cicd-flask-app-himd.onrender.com
 
-**Health Endpoint**
+### Health Check Endpoint
 
 https://cicd-flask-app-himd.onrender.com/health
 
 ---
 
-## 📌 Overview
+## 📸 Screenshots
 
-A production-style DevOps project demonstrating the complete software delivery lifecycle:
+### Live Application
 
-- Flask Application Development
-- Automated Testing with Pytest
+![Live Application](assets/live-app.png)
+
+### GitHub Actions Pipeline
+
+![GitHub Actions](assets/github-actions.png)
+
+---
+
+## 📌 Project Overview
+
+This project demonstrates a complete CI/CD workflow used in modern DevOps environments.
+
+Features:
+
+- Flask REST API
+- Health Check Endpoint
+- Automated Testing using Pytest
 - Docker Containerization
-- Git Version Control
 - GitHub Actions CI Pipeline
-- Docker Hub Image Registry
-- Cloud Deployment using Render
+- Docker Hub Integration
+- Cloud Deployment on Render
 
 ---
 
@@ -40,11 +53,11 @@ Developer
 GitHub Repository
     │
     ▼
-GitHub Actions CI
+GitHub Actions
     │
     ├── Install Dependencies
-    ├── Run Pytest
-    └── Validate Application
+    ├── Run Tests
+    └── Validate Build
     │
     ▼
 Docker Image
@@ -57,22 +70,20 @@ Render Deployment
     │
     ▼
 Live Application
-````
+```
 
----
+## ⚙️ Tech Stack
 
-## 🛠️ Tech Stack
-
-| Category         | Technology     |
-| ---------------- | -------------- |
-| Backend          | Flask          |
-| Language         | Python         |
-| Testing          | Pytest         |
-| Containerization | Docker         |
-| Version Control  | Git & GitHub   |
-| CI/CD            | GitHub Actions |
-| Registry         | Docker Hub     |
-| Deployment       | Render         |
+| Category | Technology |
+|-----------|------------|
+| Language | Python |
+| Framework | Flask |
+| Testing | Pytest |
+| Containerization | Docker |
+| CI/CD | GitHub Actions |
+| Version Control | Git & GitHub |
+| Registry | Docker Hub |
+| Deployment | Render |
 
 ---
 
@@ -88,11 +99,15 @@ cicd-flask-app/
 ├── tests/
 │   └── test_app.py
 │
+├── assets/
+│   ├── live-app.png
+│   └── github-actions.png
+│
 ├── Dockerfile
 ├── .dockerignore
 ├── .gitignore
-├── requirements.txt
 ├── app.py
+├── requirements.txt
 └── README.md
 ```
 
@@ -106,7 +121,7 @@ cicd-flask-app/
 GET /
 ```
 
-Response
+Response:
 
 ```json
 {
@@ -121,7 +136,7 @@ Response
 GET /health
 ```
 
-Response
+Response:
 
 ```json
 {
@@ -131,13 +146,15 @@ Response
 
 ---
 
-## 🧪 Running Tests
+## 🧪 Automated Testing
+
+Run tests:
 
 ```bash
 pytest -v
 ```
 
-Expected Output
+Expected Output:
 
 ```text
 tests/test_app.py::test_home PASSED
@@ -146,21 +163,21 @@ tests/test_app.py::test_health PASSED
 
 ---
 
-## 🐳 Docker Commands
+## 🐳 Docker Usage
 
-Build Image
+Build Image:
 
 ```bash
 docker build -t cicd-flask-app .
 ```
 
-Run Container
+Run Container:
 
 ```bash
 docker run -p 5000:5000 cicd-flask-app
 ```
 
-Push Image
+Push Image:
 
 ```bash
 docker push chandrashekharhs/cicd-flask-app:v1
@@ -168,15 +185,16 @@ docker push chandrashekharhs/cicd-flask-app:v1
 
 ---
 
-## ⚙️ CI Pipeline
+## 🔄 Continuous Integration
 
-The GitHub Actions workflow automatically:
+Every push to the `main` branch automatically:
 
-1. Triggers on push to main
-2. Checks out source code
-3. Installs dependencies
-4. Runs Pytest
-5. Validates application
+- Installs dependencies
+- Runs automated tests
+- Validates application build
+- Reports build status
+
+GitHub Actions ensures code quality before deployment.
 
 ---
 
@@ -189,7 +207,7 @@ Git Push
     ↓
 GitHub Actions
     ↓
-Automated Testing
+Pytest
     ↓
 Docker Build
     ↓
@@ -197,43 +215,50 @@ Docker Hub
     ↓
 Render Deployment
     ↓
-Live Application
+Production Application
 ```
 
 ---
 
-## 🎯 Skills Demonstrated
+## 🎯 DevOps Skills Demonstrated
 
-* Linux Fundamentals
-* Git & GitHub
-* Python Development
-* Flask APIs
-* Docker
-* GitHub Actions
-* CI/CD
-* Cloud Deployment
-* Debugging & Troubleshooting
+- Linux Fundamentals
+- Git & GitHub
+- Python Development
+- Flask APIs
+- Docker Containerization
+- GitHub Actions
+- Continuous Integration
+- Cloud Deployment
+- Troubleshooting
+- DevOps Workflow Automation
 
 ---
 
-## 📈 Future Enhancements
+## 📈 Future Improvements
 
-* Automatic Docker Hub Publishing
-* Prometheus Monitoring
-* Grafana Dashboards
-* Alertmanager Integration
-* Kubernetes Deployment
-* Terraform Infrastructure
+- Automatic DockerHub Publishing
+- Prometheus Monitoring
+- Grafana Dashboards
+- Alertmanager Integration
+- Kubernetes Deployment
+- Terraform Infrastructure as Code
+- GitOps Workflow
 
 ---
 
 ## 👨‍💻 Author
 
-**Chandrashekhar H S**
+### Chandrashekhar H S
 
-GitHub: https://github.com/Chandrashekhar-cloud
+Aspiring DevOps / Site Reliability Engineer
 
-Aspiring DevOps / SRE Engineer
+GitHub:
+https://github.com/Chandrashekhar-cloud
 
-```
-```
+LinkedIn:
+(Add Your LinkedIn URL)
+
+---
+
+⭐ If you found this project useful, consider giving it a star.
