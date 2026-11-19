@@ -1,23 +1,22 @@
-# 🚀 DevOps Task Manager API with CI/CD Pipeline 
+# 🚀 DevOps Task Manager API with CI/CD Pipeline
 
+![CI Pipeline](https://github.com/Chandrashekhar-cloud/cicd-flask-app/actions/workflows/ci.yml/badge.svg)
+![Coverage](https://img.shields.io/badge/coverage-92.65%25-brightgreen)
+![Python](https://img.shields.io/badge/Python-3.12-blue)
+![Docker](https://img.shields.io/badge/Docker-Containerized-blue)
+![Status](https://img.shields.io/badge/Status-Active-success)
 
-> Production-style Flask Task Manager API demonstrating Docker, Automated Testing, GitHub Actions, Monitoring Endpoints, and Cloud Deployment.
+A Flask-based Task Manager REST API demonstrating Docker containerization, automated testing, CI/CD, Prometheus monitoring, Grafana observability, and cloud deployment.
 
 ---
 
 ## 🌐 Live Demo
 
-### Application URL
-
-https://cicd-flask-app-himd.onrender.com
-
-### Health Endpoint
-
-https://cicd-flask-app-himd.onrender.com/health
-
-### Metrics Endpoint
-
-https://cicd-flask-app-himd.onrender.com/metrics
+| Resource | URL |
+|---|---|
+| Application | https://cicd-flask-app-himd.onrender.com |
+| Health Check | https://cicd-flask-app-himd.onrender.com/health |
+| Metrics | https://cicd-flask-app-himd.onrender.com/metrics |
 
 ---
 
@@ -31,77 +30,79 @@ https://cicd-flask-app-himd.onrender.com/metrics
 
 ![GitHub Actions](assets/github-actions.png)
 
+### Grafana Observability Dashboard
+
+![Grafana Dashboard](assets/api-observability-dashboard.png)
+
+The Grafana dashboard provides visibility into:
+
+- API Request Rate
+- API Error Rate
+- API p95 Latency
+- API Availability
+
 ---
 
 ## 📌 Project Overview
 
-This project demonstrates a complete DevOps workflow from development to production deployment.
+This project demonstrates a practical DevOps workflow by developing, testing, containerizing, monitoring, and deploying a Flask-based REST API.
 
-### Features
+### Key Features
 
-- Task Management REST API
-- CRUD Operations
-- Health Monitoring
-- System Statistics Endpoint
-- Prometheus-style Metrics
-- Automated Testing with Pytest
-- Docker Containerization
-- GitHub Actions CI Pipeline
-- Docker Hub Image Publishing
-- Cloud Deployment on Render
+- Task Management REST API with CRUD operations
+- Health check and application information endpoints
+- System resource monitoring using Psutil
+- Prometheus-compatible application metrics
+- HTTP request counters with method, endpoint, and status labels
+- HTTP request latency histogram
+- Grafana observability dashboard
+- Automated testing using Pytest
+- 92.65% overall test coverage
+- GitHub Actions CI pipeline
+- Automated 80% minimum coverage enforcement
+- Docker containerization
+- Docker Hub image publishing
+- Cloud deployment using Render
 
 ---
 
-## ⚙️ Tech Stack
+## ⚙️ Technology Stack
 
-| Category | Technology |
-|-----------|------------|
-| Language | Python |
+| Category | Technologies |
+|---|---|
+| Programming Language | Python |
 | Framework | Flask |
-| Testing | Pytest |
-| Monitoring | Psutil |
+| Testing | Pytest, pytest-cov |
+| Monitoring | Prometheus, Grafana, Psutil |
 | Containerization | Docker |
 | CI/CD | GitHub Actions |
-| Registry | Docker Hub |
+| Container Registry | Docker Hub |
 | Deployment | Render |
-| Version Control | Git & GitHub |
+| Version Control | Git, GitHub |
+| Operating System | Linux |
 
 ---
 
 ## 🔍 API Endpoints
 
 | Method | Endpoint | Description |
-|----------|-----------|-------------|
-| GET | / | Application Info |
-| GET | /health | Health Check |
-| GET | /api/info | Application Details |
-| GET | /api/stats | System Statistics |
-| GET | /api/tasks | List Tasks |
-| POST | /api/tasks | Create Task |
-| GET | /api/tasks/{id} | Get Task |
-| PATCH | /api/tasks/{id} | Update Task |
-| DELETE | /api/tasks/{id} | Delete Task |
-| GET | /metrics | Monitoring Metrics |
+|---|---|---|
+| GET | `/` | Application Information |
+| GET | `/health` | Health Check |
+| GET | `/api/info` | Application Details |
+| GET | `/api/stats` | System Statistics |
+| GET | `/api/tasks` | List Tasks |
+| POST | `/api/tasks` | Create Task |
+| GET | `/api/tasks/{id}` | Retrieve Task |
+| PATCH | `/api/tasks/{id}` | Update Task |
+| DELETE | `/api/tasks/{id}` | Delete Task |
+| GET | `/metrics` | Prometheus Metrics |
 
 ---
 
-## 🧪 Automated Testing
+## 🧪 Automated Testing & Coverage
 
-Total Tests: **16**
-
-Run Tests:
-
-```bash
-pytest -v
-```
-
-Expected Output:
-
-```text
-==================== 16 passed ====================
-```
-
-### Test Coverage
+The application includes **18 automated tests** covering:
 
 - Health Endpoints
 - API Information
@@ -113,135 +114,19 @@ Expected Output:
 - Error Handling
 - Filtering Logic
 - Metrics Endpoint
+- HTTP Request Monitoring
 
----
+### Test Coverage Results
 
-## 🐳 Docker Usage
+| Metric | Result |
+|---|---:|
+| Total Tests | 18 |
+| Tests Passed | 18 |
+| Application Coverage | 88% |
+| Overall Coverage | **92.65%** |
+| Minimum CI Coverage | 80% |
 
-Build Image:
-
-```bash
-docker build -t cicd-flask-app .
-```
-
-Run Container:
-
-```bash
-docker run -p 5000:5000 cicd-flask-app
-```
-
-Push Image:
+### Run Tests
 
 ```bash
-docker push chandrashekharhs/cicd-flask-app:v1
-```
-
----
-
-## 🔄 CI/CD Pipeline
-
-Every push to the `main` branch automatically:
-
-- Installs Dependencies
-- Runs Automated Tests
-- Validates Application Build
-- Reports Build Status
-- Triggers Deployment Workflow
-
----
-
-## 📊 Monitoring Features
-
-The application provides:
-
-- CPU Usage
-- Memory Usage
-- Disk Usage
-- Application Uptime
-- Request Counters
-- Error Counters
-- Task Statistics
-
-Metrics Endpoint:
-
-```text
-/metrics
-```
-
----
-
-## 🚀 Deployment Flow
-
-```text
-Developer
-    │
-    ▼
-GitHub Repository
-    │
-    ▼
-GitHub Actions
-    │
-    ├── Install Dependencies
-    ├── Run Tests
-    └── Validate Build
-    │
-    ▼
-Docker Image
-    │
-    ▼
-Docker Hub
-    │
-    ▼
-Render Deployment
-    │
-    ▼
-Live Application
-```
-
----
-
-## 🎯 DevOps Skills Demonstrated
-
-- Linux Fundamentals
-- Git & GitHub
-- Python Development
-- REST API Development
-- Automated Testing
-- Docker Containerization
-- GitHub Actions
-- Continuous Integration
-- Cloud Deployment
-- Monitoring & Metrics
-- Troubleshooting
-- DevOps Workflow Automation
-
----
-
-## 📈 Future Improvements
-
-- Prometheus Integration
-- Grafana Dashboards
-- Kubernetes Deployment
-- Helm Charts
-- Terraform Infrastructure
-- GitOps with ArgoCD
-- AWS EKS Deployment
-
----
-
-## 👨‍💻 Author
-
-### Chandrashekhar H S
-
-Aspiring DevOps / Site Reliability Engineer
-
-GitHub:
-https://github.com/Chandrashekhar-cloud
-
-Live Project:
-https://cicd-flask-app-himd.onrender.com
-
----
-
-⭐ If you found this project useful, consider giving it a star.
-
+pytest -v
