@@ -1,37 +1,28 @@
-# 🚀 DevOps Task Manager API with CI/CD Pipeline 
+# 🚀 DevOps Task Manager API with CI/CD Pipeline
 
+![CI Pipeline](https://github.com/Chandrashekhar-cloud/cicd-flask-app/actions/workflows/ci.yml/badge.svg)
+![Coverage](https://img.shields.io/badge/coverage-92.65%25-brightgreen)
+![Python](https://img.shields.io/badge/Python-3.12-blue)
+![Docker](https://img.shields.io/badge/Docker-Containerized-blue)
+![Status](https://img.shields.io/badge/Status-Active-success)
 
-## 🌐 Live Demo
-
-### Application URL
-
-https://cicd-flask-app-himd.onrender.com
-
-### Health Endpoint
-
-https://cicd-flask-app-himd.onrender.com/health
-
-### Metrics Endpoint
-
-https://cicd-flask-app-himd.onrender.com/metrics
+A Flask-based Task Manager REST API demonstrating Docker containerization, automated testing, CI pipelines, cloud deployment, and application monitoring using Prometheus and Grafana.
 
 ---
 
-## 📸 Screenshots
+## 🌐 Live Demo
 
-### Live Application
-
-![Live Application](assets/live-app.png)
-
-### GitHub Actions Pipeline
-
-![GitHub Actions](assets/github-actions.png)
+| Resource | URL |
+|---|---|
+| Application | https://cicd-flask-app-himd.onrender.com |
+| Health Check | https://cicd-flask-app-himd.onrender.com/health |
+| Metrics | https://cicd-flask-app-himd.onrender.com/metrics |
 
 ---
 
 ## 📌 Project Overview
 
-This project demonstrates a complete DevOps workflow from development to production deployment.
+This project demonstrates an end-to-end DevOps workflow by combining REST API development, Docker containerization, automated testing, continuous integration, cloud deployment, and observability.
 
 ### Features
 
@@ -39,8 +30,12 @@ This project demonstrates a complete DevOps workflow from development to product
 - CRUD Operations
 - Health Monitoring
 - System Statistics Endpoint
-- Prometheus-style Metrics
+- Prometheus Metrics Integration
+- HTTP Request Counters
+- Request Latency Histogram
+- Grafana Monitoring Dashboard
 - Automated Testing with Pytest
+- Test Coverage Enforcement
 - Docker Containerization
 - GitHub Actions CI Pipeline
 - Docker Hub Image Publishing
@@ -51,13 +46,16 @@ This project demonstrates a complete DevOps workflow from development to product
 ## ⚙️ Tech Stack
 
 | Category | Technology |
-|-----------|------------|
-| Language | Python |
+|---|---|
+| Language | Python 3.12 |
 | Framework | Flask |
 | Testing | Pytest |
-| Monitoring | Psutil |
+| Coverage | Pytest-Cov |
+| Monitoring | Prometheus |
+| Visualization | Grafana |
+| System Metrics | Psutil |
 | Containerization | Docker |
-| CI/CD | GitHub Actions |
+| CI | GitHub Actions |
 | Registry | Docker Hub |
 | Deployment | Render |
 | Version Control | Git & GitHub |
@@ -67,37 +65,42 @@ This project demonstrates a complete DevOps workflow from development to product
 ## 🔍 API Endpoints
 
 | Method | Endpoint | Description |
-|----------|-----------|-------------|
-| GET | / | Application Info |
-| GET | /health | Health Check |
-| GET | /api/info | Application Details |
-| GET | /api/stats | System Statistics |
-| GET | /api/tasks | List Tasks |
-| POST | /api/tasks | Create Task |
-| GET | /api/tasks/{id} | Get Task |
-| PATCH | /api/tasks/{id} | Update Task |
-| DELETE | /api/tasks/{id} | Delete Task |
-| GET | /metrics | Monitoring Metrics |
+|---|---|---|
+| GET | `/` | Application Information |
+| GET | `/health` | Health Check |
+| GET | `/api/info` | Application Details |
+| GET | `/api/stats` | System Statistics |
+| GET | `/api/tasks` | List Tasks |
+| POST | `/api/tasks` | Create Task |
+| GET | `/api/tasks/{id}` | Get Task |
+| PATCH | `/api/tasks/{id}` | Update Task |
+| DELETE | `/api/tasks/{id}` | Delete Task |
+| GET | `/metrics` | Prometheus Metrics |
 
 ---
 
 ## 🧪 Automated Testing
 
-Total Tests: **16**
+The application includes automated tests using Pytest.
 
-Run Tests:
+- **Total Tests:** 18
+- **Test Coverage:** 92.65%
+- **Application Coverage:** 88%
+- **CI Coverage Threshold:** 80%
+
+### Run Tests
 
 ```bash
 pytest -v
 ```
 
-Expected Output:
+### Generate Coverage Report
 
-```text
-==================== 16 passed ====================
+```bash
+pytest --cov=. --cov-report=term-missing
 ```
 
-### Test Coverage
+### Test Coverage Includes
 
 - Health Endpoints
 - API Information
@@ -114,19 +117,19 @@ Expected Output:
 
 ## 🐳 Docker Usage
 
-Build Image:
+### Build Docker Image
 
 ```bash
 docker build -t cicd-flask-app .
 ```
 
-Run Container:
+### Run Container
 
 ```bash
 docker run -p 5000:5000 cicd-flask-app
 ```
 
-Push Image:
+### Push Image
 
 ```bash
 docker push chandrashekharhs/cicd-flask-app:v1
@@ -134,64 +137,95 @@ docker push chandrashekharhs/cicd-flask-app:v1
 
 ---
 
-## 🔄 CI/CD Pipeline
+## 🔄 CI Pipeline
 
-Every push to the `main` branch automatically:
+GitHub Actions automatically runs when code is pushed to the `main` branch.
 
-- Installs Dependencies
-- Runs Automated Tests
-- Validates Application Build
-- Reports Build Status
-- Triggers Deployment Workflow
+### Pipeline Workflow
 
----
+1. Checks out the repository.
+2. Sets up Python 3.12.
+3. Installs project dependencies.
+4. Runs automated Pytest tests.
+5. Generates test coverage reports.
+6. Enforces a minimum 80% coverage threshold.
 
-## 📊 Monitoring Features
-
-The application provides:
-
-- CPU Usage
-- Memory Usage
-- Disk Usage
-- Application Uptime
-- Request Counters
-- Error Counters
-- Task Statistics
-
-Metrics Endpoint:
-
-```text
-/metrics
-```
+The pipeline fails if the test suite fails or coverage falls below the configured threshold.
 
 ---
 
-## 🚀 Deployment Flow
+## 📊 Monitoring and Observability
+
+The application exposes Prometheus metrics through the `/metrics` endpoint.
+
+### Implemented Metrics
+
+- HTTP Request Counter
+- HTTP Request Duration Histogram
+- Request Status Codes
+- Endpoint-Level Request Metrics
+
+### Grafana Dashboard
+
+A Grafana dashboard visualizes API performance using Prometheus as the data source.
+
+The dashboard includes four panels:
+
+1. **API Request Rate** – Tracks incoming requests by endpoint.
+2. **API Error Rate** – Displays the percentage of HTTP 5xx responses.
+3. **API p95 Latency** – Measures 95th-percentile request latency.
+4. **API Availability (SLO)** – Displays API availability as a percentage.
+
+### Dashboard Screenshot
+
+![Task Manager API Grafana Dashboard](assets/api-observability-dashboard.png)
+
+### Monitoring Stack
+
+- Prometheus – Metrics collection and querying.
+- Grafana – Dashboard visualization.
+- Docker Compose – Container orchestration.
+
+---
+
+## 🏗️ Deployment Architecture
 
 ```text
 Developer
-    │
-    ▼
+    |
+    v
 GitHub Repository
-    │
-    ▼
+    |
+    v
 GitHub Actions
-    │
-    ├── Install Dependencies
-    ├── Run Tests
-    └── Validate Build
-    │
-    ▼
-Docker Image
-    │
-    ▼
-Docker Hub
-    │
-    ▼
-Render Deployment
-    │
-    ▼
-Live Application
+    |
+    +---- Install Dependencies
+    |
+    +---- Run Automated Tests
+    |
+    +---- Validate Coverage
+    |
+    v
+Docker Containerization
+    |
+    v
+Cloud Deployment
+    |
+    v
+Render
+    |
+    v
+Live Flask API
+
+Monitoring Architecture:
+
+Flask API
+    |
+    v
+Prometheus
+    |
+    v
+Grafana Dashboard
 ```
 
 ---
@@ -202,12 +236,15 @@ Live Application
 - Git & GitHub
 - Python Development
 - REST API Development
+- Flask
 - Automated Testing
 - Docker Containerization
 - GitHub Actions
 - Continuous Integration
+- Prometheus Monitoring
+- Grafana Dashboards
+- Metrics and Observability
 - Cloud Deployment
-- Monitoring & Metrics
 - Troubleshooting
 - DevOps Workflow Automation
 
@@ -215,11 +252,9 @@ Live Application
 
 ## 📈 Future Improvements
 
-- Prometheus Integration
-- Grafana Dashboards
 - Kubernetes Deployment
 - Helm Charts
-- Terraform Infrastructure
+- Terraform Infrastructure Automation
 - GitOps with ArgoCD
 - AWS EKS Deployment
 
@@ -231,13 +266,10 @@ Live Application
 
 Aspiring DevOps / Site Reliability Engineer
 
-GitHub:
-https://github.com/Chandrashekhar-cloud
+**GitHub:** https://github.com/Chandrashekhar-cloud
 
-Live Project:
-https://cicd-flask-app-himd.onrender.com
+**Live Project:** https://cicd-flask-app-himd.onrender.com
 
 ---
 
 ⭐ If you found this project useful, consider giving it a star.
-
