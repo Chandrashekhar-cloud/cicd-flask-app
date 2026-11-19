@@ -97,3 +97,17 @@ def test_metrics_endpoint(client):
     r = client.get("/metrics")
     assert r.status_code == 200
     assert b"app_tasks_total" in r.data
+def test_metrics_contains_request_counter(client):
+    client.get("/health")
+    r = client.get("/metrics")
+
+    assert r.status_code == 200
+    assert b"http_requests_total" in r.data
+    assert b'endpoint="health"' in r.data
+
+
+def test_metrics_contains_latency_histogram(client):
+    client.get("/health")
+    r = client.get("/metrics")
+
+    assert b"http_request_duration_seconds_bucket" in r.data

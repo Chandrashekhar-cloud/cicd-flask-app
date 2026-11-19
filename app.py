@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 from datetime import datetime
 from collections import defaultdict
 import time, os, platform, psutil
+from prometheus_client import Counter, Histogram, generate_latest, CONTENT_TYPE_LATEST
 
 app = Flask(__name__)
 
@@ -12,11 +13,46 @@ REQUEST_COUNTS = defaultdict(int)
 ERROR_COUNTS = defaultdict(int)
 
 APP_VERSION = os.getenv("APP_VERSION", "2.0.0")
+# ── Prometheus metrics ────────────────────────────
+HTTP_REQUESTS = Counter(
+    "http_requests_total",
+    "Total HTTP requests",
+    ["method", "endpoint", "status"]
+)
 
+HTTP_REQUEST_DURATION = Histogram(
+    "http_request_duration_seconds",
+    "HTTP request duration in seconds",
+    ["method", "endpoint"]
+)
 
 # ── Helper ────────────────────────────────────────
 def track(name):
     REQUEST_COUNTS[name] += 1
+# ── Automatic request monitoring ──────────────────
+@app.before_request
+def before_request():
+    request.start_time = time.time()
+
+
+@app.after_request
+def after_request(response):
+    if request.path != "/metrics":
+        endpoint = request.endpoint or "unknown"
+        duration = time.time() - request.start_time
+
+        HTTP_REQUESTS.labels(
+            method=request.method,
+            endpoint=endpoint,
+            status=str(response.status_code)
+        ).inc()
+
+        HTTP_REQUEST_DURATION.labels(
+            method=request.method,
+            endpoint=endpoint
+        ).observe(duration)
+
+    return response
 
 
 # ══════════════════════════════════════════════════
@@ -193,10 +229,8 @@ def delete_task(task_id):
 # ══════════════════════════════════════════════════
 # PROMETHEUS METRICS
 # ══════════════════════════════════════════════════
-
 @app.route("/metrics")
 def metrics():
-    track("metrics")
     lines = [
         "# HELP app_tasks_total Total tasks in memory",
         "# TYPE app_tasks_total gauge",
@@ -205,13 +239,15 @@ def metrics():
         "# HELP app_uptime_seconds App uptime in seconds",
         "# TYPE app_uptime_seconds counter",
         f"app_uptime_seconds {round(time.time() - START_TIME)}",
-        "",
-        "# HELP app_requests_total Requests per endpoint",
-        "# TYPE app_requests_total counter",
     ]
-    for ep, count in REQUEST_COUNTS.items():
-        lines.append(f'app_requests_total{{endpoint="{ep}"}} {count}')
-    return "\n".join(lines) + "\n", 200, {"Content-Type": "text/plain"}
+
+    custom_metrics = generate_latest().decode("utf-8")
+
+    return (
+        "\n".join(lines) + "\n" + custom_metrics,
+        200,
+        {"Content-Type": CONTENT_TYPE_LATEST}
+    )
 
 
 # ══════════════════════════════════════════════════
